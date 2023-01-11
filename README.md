@@ -14,4 +14,6 @@ Install python, pip -> open terminal
 
     6. python manage.py createsuperuser
 
+    7. python manage.py runserver
+
 Profit... в settings проекта выберите нужную базу для разработки... все должно запускаться и работать без проблем
