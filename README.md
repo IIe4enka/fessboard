@@ -1,6 +1,6 @@
 # Проект Fessboard
 
-    2. install python, pip, open terminal
+Install python, pip, open terminal
 
     1. git clone git@github.com:spaiki007/fessboard.git
 
@@ -14,6 +14,4 @@
 
     6. python manage.py createsuperuser
 
-    profit...
-    
-    10. в settings проекта выберите нужную базу для разработки...
+profit... в settings проекта выберите нужную базу для разработки...
