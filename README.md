@@ -1,6 +1,6 @@
 # Проект Fessboard
 
-Install python, pip, open terminal
+Install python, pip -> open terminal
 
     1. git clone git@github.com:spaiki007/fessboard.git
 
