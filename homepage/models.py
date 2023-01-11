@@ -1,6 +1,7 @@
 from django.db import models
 
-#???
+#??? 
+# [ОТ МИШИ] Это модель под список возможных сфер работы компаний (пример: Маркетинг, IT, Финансы)
 class Sphere(models.Model):
 
     name = models.CharField(max_length=255, verbose_name="???")
@@ -9,40 +10,44 @@ class Sphere(models.Model):
         return self.name
     
 #???
+# [ОТ МИШИ] Это модель описывает таблицу содердащую список возможных типов компаний (пример: Малый бизнес, Государственная, Крупный российский бизнес, Крупный зарубежный)
 class Type(models.Model):
 
-    name = models.CharField(max_length=255, verbose_name="???")
+    name = models.CharField(max_length=255, verbose_name="???") # Название типа компании
 
     def __str__(self):
         return self.name
     
 #???
+# [ОТ МИШИ] Это модель описывает таблицу содердащую список всех компаний-партнёров университета
 class Company(models.Model):
 
-    name        = models.CharField(max_length=255, verbose_name="???")
-    type        = models.ForeignKey(Type, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="???")
-    sphere      = models.ForeignKey(Sphere, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="???")
-    website     = models.TextField(verbose_name="???")
+    name        = models.CharField(max_length=255, verbose_name="???") # Наименование компании
+    type        = models.ForeignKey(Type, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="???") # Тип компании
+    sphere      = models.ForeignKey(Sphere, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="???") # Сфера работы компании
+    website     = models.TextField(verbose_name="???") # Активный вебсайт компании
 
     def __str__(self):
         return self.name
 
 #???
+# [ОТ МИШИ] Это модель описывает таблицу содердащую список всех мероприятий, которые проходили на факультете
 class Event(models.Model):
 
-    name        = models.CharField(max_length=255, verbose_name="???")
-    start_date  = models.DateField(verbose_name="???")
-    end_date    = models.DateField(verbose_name="???")
-    description = models.TextField(verbose_name="???")
-    is_frozen   = models.IntegerField(verbose_name="???")
+    name        = models.CharField(max_length=255, verbose_name="???") # Название мероприятия
+    start_date  = models.DateField(verbose_name="???") # Дата началы мероприятия
+    end_date    = models.DateField(verbose_name="???") # Дата конца мероприятия
+    description = models.TextField(verbose_name="???") # Описание мероприятия
+    is_frozen   = models.IntegerField(verbose_name="???") # Заморожено ли мероприятие (для тех, которые в процессе планирования\реализации пришлось отложить)
 
     def __str__(self):
         return self.name
     
 #???
+# [ОТ МИШИ] Это модель описывает таблицу содердащую список Крупных сфер проектов для каждого Типа проектов (пример: проекты типа Машинное обучение и Анализ данных относятся к сфере Data Science)
 class FieldSphere(models.Model):
 
-    name = models.CharField(max_length=255, verbose_name="???")
+    name = models.CharField(max_length=255, verbose_name="???") # Наименование сфер проектов
 
     def __str__(self):
         return self.name
