@@ -1,4 +1,5 @@
-# 1. git clone git@github.com:spaiki007/fessboard.git
+# 
+    1. git clone git@github.com:spaiki007/fessboard.git
 # 2. install python, pip
 # 3. open terminal
 # 4. cd fessboard directory
