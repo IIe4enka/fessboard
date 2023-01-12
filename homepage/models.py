@@ -1,62 +1,87 @@
 from django.db import models
 
-#??? 
-# [ОТ МИШИ] Это модель под список возможных сфер работы компаний (пример: Маркетинг, IT, Финансы)
+
+# Эта модель под список возможных сфер работы компаний (пример: Маркетинг, IT, Финансы)
 class Sphere(models.Model):
 
     name = models.CharField(max_length=255, verbose_name="???")
 
     def __str__(self):
         return self.name
-    
-#???
-# [ОТ МИШИ] Это модель описывает таблицу содердащую список возможных типов компаний (пример: Малый бизнес, Государственная, Крупный российский бизнес, Крупный зарубежный)
+
+# Эта модель описывает таблицу содержащую список возможных типов компаний (пример: Малый бизнес, Государственная, Крупный российский бизнес, Крупный зарубежный)
 class Type(models.Model):
 
-    name = models.CharField(max_length=255, verbose_name="???") # Название типа компании
+    name = models.CharField(max_length=255, verbose_name="Название типа компании")
 
     def __str__(self):
         return self.name
     
-#???
-# [ОТ МИШИ] Это модель описывает таблицу содердащую список всех компаний-партнёров университета
+# Эта модель описывает таблицу содердащую список всех компаний-партнёров университета
 class Company(models.Model):
 
-    name        = models.CharField(max_length=255, verbose_name="???") # Наименование компании
-    type        = models.ForeignKey(Type, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="???") # Тип компании
-    sphere      = models.ForeignKey(Sphere, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="???") # Сфера работы компании
-    website     = models.TextField(verbose_name="???") # Активный вебсайт компании
+    name        = models.CharField(max_length=255, verbose_name="Наименование компании")
+    type        = models.ForeignKey(Type, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Тип компании")
+    sphere      = models.ForeignKey(Sphere, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Сфера работы компании")
+    website     = models.TextField(verbose_name="Активный вебсайт компании")
 
     def __str__(self):
         return self.name
 
-#???
-# [ОТ МИШИ] Это модель описывает таблицу содердащую список всех мероприятий, которые проходили на факультете
+
+# Эта модель описывает таблицу содердащую список всех мероприятий, которые проходили на факультете
 class Event(models.Model):
 
-    name        = models.CharField(max_length=255, verbose_name="???") # Название мероприятия
-    start_date  = models.DateField(verbose_name="???") # Дата началы мероприятия
-    end_date    = models.DateField(verbose_name="???") # Дата конца мероприятия
-    description = models.TextField(verbose_name="???") # Описание мероприятия
-    is_frozen   = models.IntegerField(verbose_name="???") # Заморожено ли мероприятие (для тех, которые в процессе планирования\реализации пришлось отложить)
+    name        = models.CharField(max_length=255, verbose_name="Название мероприятия")
+    start_date  = models.DateField(verbose_name="Дата началы мероприятия")
+    end_date    = models.DateField(verbose_name="Дата конца мероприятия")
+    description = models.TextField(verbose_name="Описание мероприятия")
+    is_frozen   = models.IntegerField(verbose_name="Заморожено ли мероприятие (для тех, которые в процессе планирования\реализации пришлось отложить)")
+
+    def __str__(self):
+        return self.name
+    
+# Эта модель описывает таблицу содердащую список Крупных сфер проектов для каждого Типа проектов (пример: проекты типа Машинное обучение и Анализ данных относятся к сфере Data Science)
+class FieldSphere(models.Model):
+
+    name = models.CharField(max_length=255, verbose_name="Наименование сфер проектов")
+
+    def __str__(self):
+        return self.name
+
+
+
+
+# ???
+class Region(models.Model):
+    name        = models.CharField(max_length=255)
+    is_foreign  = models.IntegerField()
 
     def __str__(self):
         return self.name
     
 #???
-# [ОТ МИШИ] Это модель описывает таблицу содердащую список Крупных сфер проектов для каждого Типа проектов (пример: проекты типа Машинное обучение и Анализ данных относятся к сфере Data Science)
-class FieldSphere(models.Model):
+class University(models.Model):
+    name    = models.CharField(max_length=255, verbose_name="???")
+    logo    = models.TextField(verbose_name="???")
+    region  = models.ForeignKey(Region, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="???")
 
-    name = models.CharField(max_length=255, verbose_name="???") # Наименование сфер проектов
+# ???
+class StudentStatus(models.Model):
+    status = models.CharField(max_length=255, verbose_name="???")
 
-    def __str__(self):
-        return self.name
+# ???
+class Student(models.Model):
 
+    surname                 = models.CharField(max_length=255, verbose_name="???")
+    name                    = models.CharField(max_length=255, verbose_name="???")
+    midname                 = models.CharField(max_length=255, verbose_name="???")
+    bachelors_start_year    = models.TextField(blank=True, null=True, verbose_name="???")
+    masters_start_year      = models.TextField(blank=True, null=True, verbose_name="???")  # This field type is a guess.
 
-
-
-
-
+    student_status          = models.ForeignKey(StudentStatus, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="???")
+    bachelors               = models.ForeignKey(University, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="???")
+    masters                 = models.ForeignKey(University, on_delete=models.SET_NULL, null=True, blank=True, related_name='Uni_masters', verbose_name="???")
 
 
 
@@ -67,11 +92,17 @@ class FieldSphere(models.Model):
 
 
 class Groups(models.Model):
-    curator_student = models.ForeignKey('Students', on_delete=models.SET_NULL, null=True, blank=True,)
 
-    class Meta:
-        managed = False
-        db_table = 'groups'
+    students = models.ForeignKey('Students', on_delete=models.SET_NULL, null=True, blank=True, verbose_name="???")
+
+    def __str__(self):
+        return self.id
+
+
+
+
+
+
 
 class GroupsInProjects(models.Model):
     project = models.ForeignKey('Projects', on_delete=models.SET_NULL, null=True, blank=True,)
@@ -143,40 +174,6 @@ class Projects(models.Model):
         managed = False
         db_table = 'projects'
 
-class Regions(models.Model):
-    region_id = models.AutoField(primary_key=True)
-    region = models.CharField(max_length=255)
-    is_foreign = models.IntegerField()
-
-    class Meta:
-        managed = False
-        db_table = 'regions'
-
-class StudentStatuses(models.Model):
-    student_status_id = models.AutoField(primary_key=True)
-    student_status = models.CharField(max_length=255)
-
-    class Meta:
-        managed = False
-        db_table = 'student_statuses'
-
-class Students(models.Model):
-    student_id = models.AutoField(primary_key=True)
-    student_surname = models.CharField(max_length=255)
-    student_name = models.CharField(max_length=255)
-    student_midname = models.CharField(max_length=255)
-    bachelors_start_year = models.TextField(blank=True,
-                                            null=True)  # This field type is a guess.
-    masters_start_year = models.TextField(blank=True,
-                                          null=True)  # This field type is a guess.
-    student_status = models.ForeignKey(StudentStatuses, on_delete=models.SET_NULL, null=True, blank=True,)
-    bachelors_university = models.ForeignKey('Universities', on_delete=models.SET_NULL, null=True, blank=True,)
-    masters_university = models.ForeignKey('Universities', on_delete=models.SET_NULL, null=True, blank=True, related_name='Uni_masters')
-
-    class Meta:
-        managed = False
-        db_table = 'students'
-
 
 class StudentsInGroups(models.Model):
     group = models.ForeignKey(Groups, on_delete=models.SET_NULL, null=True, blank=True,)
@@ -213,13 +210,3 @@ class TeachersInProjects(models.Model):
     class Meta:
         managed = False
         db_table = 'teachers_in_projects'
-
-class Universities(models.Model):
-    university_id = models.AutoField(primary_key=True)
-    university_name = models.CharField(max_length=255)
-    university_logo = models.TextField()
-    university_region = models.ForeignKey(Regions, on_delete=models.SET_NULL, null=True, blank=True,)
-
-    class Meta:
-        managed = False
-        db_table = 'universities'
