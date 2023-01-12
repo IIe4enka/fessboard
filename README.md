@@ -2,7 +2,7 @@
 
 Install python, pip -> open terminal
 
-    1. git clone git@github.com:spaiki007/fessboard.git
+    1. git clone git@github.com:IIe4enka/fessboard.git
 
     2. cd fessboard
 
