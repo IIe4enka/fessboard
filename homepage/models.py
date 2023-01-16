@@ -70,6 +70,17 @@ class University(models.Model):
 class StudentStatus(models.Model):
     status = models.CharField(max_length=255, verbose_name="???")
 
+
+
+
+class Groups(models.Model):
+
+    students = models.ForeignKey('Student', on_delete=models.SET_NULL, null=True, blank=True, verbose_name="???")
+
+    def __str__(self):
+        return self.id
+
+
 # ???
 class Student(models.Model):
 
@@ -84,19 +95,17 @@ class Student(models.Model):
     masters                 = models.ForeignKey(University, on_delete=models.SET_NULL, null=True, blank=True, related_name='Uni_masters', verbose_name="???")
 
 
+class StudentsInGroups(models.Model):
+    group = models.ForeignKey(Groups, on_delete=models.SET_NULL, null=True, blank=True,)
+    student = models.ForeignKey(Student, on_delete=models.SET_NULL, null=True, blank=True,)
+
+    class Meta:
+        managed = False
+        db_table = 'students_in_groups'
 
 
 
 
-
-
-
-class Groups(models.Model):
-
-    students = models.ForeignKey('Students', on_delete=models.SET_NULL, null=True, blank=True, verbose_name="???")
-
-    def __str__(self):
-        return self.id
 
 
 
@@ -174,14 +183,6 @@ class Projects(models.Model):
         managed = False
         db_table = 'projects'
 
-
-class StudentsInGroups(models.Model):
-    group = models.ForeignKey(Groups, on_delete=models.SET_NULL, null=True, blank=True,)
-    student = models.ForeignKey(Students, on_delete=models.SET_NULL, null=True, blank=True,)
-
-    class Meta:
-        managed = False
-        db_table = 'students_in_groups'
 
 class Teachers(models.Model):
     teacher_id = models.AutoField(primary_key=True)
