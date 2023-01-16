@@ -71,3 +71,21 @@ def homepage(request):
     return render(request, 'main.html')
 
 
+def add_project(request):
+    if request.method == 'POST':
+        form = ProjectForm(request.POST)
+        formset = forms.formset_factory(StudentForm, formset=StudentFormSet, extra=0, can_delete=True)
+        formset = formset(request.POST, prefix='students')
+        if form.is_valid() and formset.is_valid():
+            project = form.save()
+            for student_form in formset:
+                student = student_form.cleaned_data['student']
+                group_number = student_form.cleaned_data['group_number']
+                item = Amogus(project=project, student=student, group=group_number)
+                item.save()
+            return redirect('/')
+
+    else:
+        form = ProjectForm()
+        formset = StudentFormSet()
+    return render(request, 'add_project.html', {'form': form, 'formset': formset})

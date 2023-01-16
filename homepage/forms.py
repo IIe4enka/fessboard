@@ -69,16 +69,28 @@ class StudentsForm(forms.ModelForm):
 
 
 class ProjectForm(forms.ModelForm):
+    def clean(self):
+        cleaned_data = super(ProjectForm, self).clean()
+        # additional cleaning here
+        return cleaned_data
+
     class Meta:
         model = Projects
         fields = '__all__'
-        # widgets = {
-        #     'company_name': forms.TextInput(attrs={'class': 'form-control'}),
-        #     'company_website': forms.TextInput(attrs={'class': 'form-control'}),
-        # }
+        exclude = ['is_frozen', 'project_dateadded', 'project_dateupdated']
+        widgets = {
+            'project_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'project_description': forms.TextInput(attrs={'class': 'form-control'}),
+            'project_result': forms.TextInput(attrs={'class': 'form-control'}),
+            'project_start_date': forms.SelectDateWidget(attrs={'class': 'form-control'}),
+            'project_end_date': forms.SelectDateWidget(attrs={'class': 'form-control'}),
+            'project_grade': forms.Select(attrs={'class': 'form-control'}),
+            'project_company': forms.Select(attrs={'class': 'form-control'}),
+            'project_field': forms.Select(attrs={'class': 'form-control'}),
+        }
 
     # def __init__(self, *args, **kwargs):
-    #     super(CompanyForm, self).__init__(*args, **kwargs)
+    #     super(CompaniesForm, self).__init__(*args, **kwargs)
     #     self.fields['company_type'] = forms.ModelChoiceField(queryset=CompanyTypes.objects.all(),
     #                                                          to_field_name='company_type',
     #                                                          empty_label='Выберите тип компании',
@@ -87,3 +99,10 @@ class ProjectForm(forms.ModelForm):
     #                                                          to_field_name='company_sphere',
     #                                                          empty_label='Выберите сферу компании',
     #                                                         widget=forms.Select(attrs={'class': 'form-control'}))
+
+
+class StudentForm(forms.Form):
+    student = forms.ModelChoiceField(queryset=Students.objects.all(), label='Select Student')
+    group_number = forms.IntegerField()
+
+StudentFormSet = forms.formset_factory(StudentForm, extra=2)
