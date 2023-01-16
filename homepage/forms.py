@@ -28,7 +28,7 @@ class CompanyForm(forms.ModelForm):
         }
 
 
-class StudentsForm(forms.ModelForm):
+class StudentForm(forms.ModelForm):
 
     class Meta:
         def possible_years(first_year_in_scroll, last_year_in_scroll):
@@ -37,7 +37,7 @@ class StudentsForm(forms.ModelForm):
                 p_year_tuple = str(i), i
                 p_year.append(p_year_tuple)
             return p_year + [('', '----')]
-        model = Students
+        model = Student
         fields = '__all__'
         widgets = {
             'student_name': forms.TextInput(attrs={'class': 'form-control'}),
@@ -53,7 +53,7 @@ class StudentsForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        super(StudentsForm, self).__init__(*args, **kwargs)
+        super(StudentForm, self).__init__(*args, **kwargs)
         # self.fields['bachelors_university'] = forms.ModelChoiceField(queryset=Universities.objects.all(),
         #                                                      to_field_name='university_name',
         #                                                      empty_label='Выберите университет бакалавра',
@@ -62,7 +62,7 @@ class StudentsForm(forms.ModelForm):
         #                                                      to_field_name='university_name',
         #                                                      empty_label='Выберите университет магистратуры',
         #                                                     widget=forms.Select(attrs={'class': 'form-control'}), required=False)
-        # self.fields['student_status'] = forms.ModelChoiceField(queryset=StudentStatuses.objects.all(),
+        # self.fields['student_status'] = forms.ModelChoiceField(queryset=Studenttatuses.objects.all(),
         #                                                            to_field_name='student_status',
         #                                                            empty_label='Выберите статус студента',
         #                                                            widget=forms.Select(attrs={'class': 'form-control'}))
@@ -102,7 +102,7 @@ class ProjectForm(forms.ModelForm):
 
 
 class StudentForm(forms.Form):
-    student = forms.ModelChoiceField(queryset=Students.objects.all(), label='Select Student')
+    student = forms.ModelChoiceField(queryset=Student.objects.all(), label='Select Student')
     group_number = forms.IntegerField()
 
 StudentFormSet = forms.formset_factory(StudentForm, extra=2)
