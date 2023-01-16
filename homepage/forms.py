@@ -105,3 +105,4 @@ class StudentForm(forms.Form):
     student = forms.ModelChoiceField(queryset=Students.objects.all(), label='Select Student')
     group_number = forms.IntegerField()
 
+StudentFormSet = forms.formset_factory(StudentForm, extra=2)
