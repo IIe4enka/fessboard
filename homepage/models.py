@@ -167,16 +167,6 @@ class Regions(models.Model):
         db_table = 'regions'
 
 
-# Эта модель хранит в себе список всех статусов студентов (например: Учится, Отчислен, В академе)
-class StudentStatuses(models.Model):
-    student_status_id = models.AutoField(primary_key=True)
-    student_status = models.CharField(max_length=255)
-
-    class Meta:
-        managed = False
-        db_table = 'student_statuses'
-
-
 # Эта модель хранит список всех студентов на факультете
 class Students(models.Model):
     student_id = models.AutoField(primary_key=True)
@@ -187,13 +177,9 @@ class Students(models.Model):
                                             null=True)  # This field type is a guess.
     masters_start_year = models.TextField(blank=True,
                                           null=True)  # This field type is a guess.
-    student_status = models.ForeignKey(StudentStatuses, on_delete=models.SET_NULL, null=True, blank=True,)
-    bachelors_university = models.ForeignKey('Universities', on_delete=models.SET_NULL, null=True, blank=True,)
-    masters_university = models.ForeignKey('Universities', on_delete=models.SET_NULL, null=True, blank=True, related_name='Uni_masters')
-
-    class Meta:
-        managed = False
-        db_table = 'students'
+    is_banned = models.BooleanField(default=False, verbose_name="Забанен ли студент")
+    bachelors = models.ForeignKey('Universities', on_delete=models.SET_NULL, null=True, blank=True,) # в каком вузе учился\учится в бакалавриате 
+    masters = models.ForeignKey('Universities', on_delete=models.SET_NULL, null=True, blank=True, related_name='Uni_masters') # в каком вузе учился\учится в магистратуре 
 
 
 
