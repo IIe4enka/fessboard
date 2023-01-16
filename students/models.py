@@ -42,7 +42,6 @@ class Profile(models.Model):
     midname                 = models.CharField(max_length=255, verbose_name="???")
     bachelors_start_year    = models.TextField(blank=True, null=True, verbose_name="???")
     masters_start_year      = models.TextField(blank=True, null=True, verbose_name="???")
-    is_banned               = models.BooleanField(default=False, verbose_name="Забанен ли игрок")
     university              = models.ForeignKey(University, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="???")
 
     projects                = models.ManyToManyField(Project, verbose_name="Проекты")

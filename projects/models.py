@@ -1,8 +1,5 @@
 from django.db import models
-
 from django.utils.timezone import now
-
-
 from company.models import Company
 
 
