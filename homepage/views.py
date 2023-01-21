@@ -81,7 +81,7 @@ def add_project(request):
             for student_form in formset:
                 student = student_form.cleaned_data['student']
                 group_number = student_form.cleaned_data['group_number']
-                item = Amogus(project=project, student=student, group=group_number)
+                item = StudentsInProjects(project=project, student=student, group=group_number)
                 item.save()
             return redirect('/')
 
