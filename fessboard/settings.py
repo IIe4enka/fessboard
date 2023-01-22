@@ -37,7 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'homepage.apps.HomepageConfig'
+    #'homepage'
+
+    'company',
+    'profiles',
+    'events',
+    'projects',
 ]
 
 MIDDLEWARE = [
@@ -83,14 +88,19 @@ DATABASES = {
 	#    'HOST': 'localhost',
     #}
 
+    #'default': {
+    #    'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+    #    'NAME': 'test',
+    #    'USER': 'postgres',
+    #    'PASSWORD': '123',
+    #    'HOST': 'localhost',
+    #    'PORT': '5432',
+    #},
+
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-        'NAME': 'test',
-        'USER': 'postgres',
-        'PASSWORD': '123',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 # Password validation

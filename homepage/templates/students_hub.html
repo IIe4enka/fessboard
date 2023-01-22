@@ -22,7 +22,7 @@
 
     <div class="container" style="width:100%">
         <div class="row">
-            <div class="col-sm"> <h2> Students </h2> </div>
+            <div class="col-sm"> <h2> Student </h2> </div>
             <div class="col-sm">
                 <form method="post" class="card p-2 mt-1" style="width: 100%; font-size: 14px">
                 <a href="{% url 'create-form' 'Student'%}" class="btn btn-primary btn-sm btn-block">Add a student</a>
@@ -42,7 +42,7 @@
             </tr>
             </thead>
             <tbody>
-            {% for item in Students %}
+            {% for item in Student %}
                 <tr>
                     <td>{{ item.student_id }}</td>
                     <td>{{ item.student_surname }}</td>

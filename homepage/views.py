@@ -3,7 +3,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import CreateView
 from .models import *
-from .forms import *
+#from .forms import *
 
 
 def createCompany(request):
@@ -46,13 +46,13 @@ def companyHub(request):
 
 
 def student_view(request):
-    form = StudentsForm(request.POST or None)
+    form = StudentForm(request.POST or None)
     if request.method == 'POST':
         form.save()
         messages.success(request, "Form saved successfully!")
         return HttpResponseRedirect('/')
     else:
-        form = StudentsForm()
+        form = StudentForm()
     return render(request, 'index.html', {'form': form})
 
 
@@ -75,7 +75,7 @@ def add_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST)
         formset = forms.formset_factory(StudentForm, formset=StudentFormSet, extra=0, can_delete=True)
-        formset = formset(request.POST, prefix='students')
+        formset = formset(request.POST, prefix='Student')
         if form.is_valid() and formset.is_valid():
             project = form.save()
             for student_form in formset:
